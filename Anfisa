@@ -8,11 +8,10 @@ int main() {
     double a,b,z;
     cin>>a>>b>>z;
 
-    const double PI = acos(-1);
-    double square;
-    double zAngleInRadians = PI*z/180;
 
-    double epsilon = 0.000000001;
+    double square;
+    double zAngleInRadians = M_PI*z/180;
+
 
     if(z==0){
         square=0;
@@ -22,16 +21,16 @@ int main() {
         square = a*b*sqrt(2);
     }
 
-    else if(cos(zAngleInRadians)/sin(zAngleInRadians)>=a*sqrt(2)/b){
+    else if(cos(zAngleInRadians)/sin(zAngleInRadians)>=a*sqrt(2)/(2*b)){
         square = a*a/(2*cos(zAngleInRadians));
     }
 
     else{
         square = b * sqrt(2) * (2 * a - b * cos(zAngleInRadians) * sqrt(2) / sin(zAngleInRadians)) /
-                (2 * sin(zAngleInRadians));
+                 (2 * sin(zAngleInRadians));
     }
 
-    cout << fixed << setprecision(4) <<abs(square);
+    cout << fixed << setprecision(4) <<square;
 
 
     return 0;
