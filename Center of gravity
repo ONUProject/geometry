@@ -1,0 +1,82 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+struct vect{
+	long double x,y;
+	
+	vect(double aa, double bb){
+		x = aa;
+		y = bb;
+	}
+	
+	void operator += (vect other){
+		x+=other.x;
+		y+=other.y;
+	}
+	
+	void operator -= (vect other){
+		x-=other.x;
+		y-=other.y;
+	}
+	
+	void operator /= (double d){
+		x/=d;
+		y/=d;
+	}
+	
+	void operator *= (double d){
+		x*=d;
+		y*=d;
+	}
+};
+
+vect triang_centre(vect &a, vect &b, vect &c){
+	vect ans(0,0);
+	ans+=a;
+	ans+=b;
+	ans+=c;
+	ans/=3.0;
+	return ans;
+}
+
+long double triang_sqr(vect &c, vect a, vect b){
+	a -= c;
+	b -= c;
+	return (a.x*b.y - a.y*b.x)/2.0;
+}
+
+int main() {
+	int n;
+	cin >> n;
+	vect a(0,0);
+	vect b(0,0);
+	vect c(0,0);
+	vect cur_ans(0,0);
+	vect ans(0,0);
+	long double denominator = 0, sqr = 0;
+	
+	cin >> a.x >> a.y;
+	vect first_point(a.x, a.y);
+	
+	for(int i = 1; i < n; ++i){
+		cin >> b.x >> b.y;
+		cur_ans = triang_centre(c, a, b);
+		sqr = triang_sqr(c, a, b);
+		cur_ans *= sqr;
+		ans += cur_ans;
+		denominator += sqr;
+		
+		a.x = b.x;
+		a.y = b.y;
+	}
+	cur_ans = triang_centre(c,b, first_point);
+	sqr = triang_sqr(c,b, first_point);
+	cur_ans *= sqr;
+	ans += cur_ans;
+	denominator += sqr;
+	
+	ans /= denominator;
+	cout << fixed << setprecision(2) << ans.x <<' '<<ans.y; 
+	return 0;
+}
