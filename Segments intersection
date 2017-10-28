@@ -1,0 +1,57 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+bool are_paral = false;
+
+int sgn(long double n){
+	if(n>0) return 1;
+	else if(n<0) return -1;
+	else return 0;
+}
+
+bool rectang_intersect(long double x1, long double y1, long double x2, long double y2, long double x3, long double y3, long double x4, long double y4){
+	if (sgn(x3 - x2) * sgn(x4 - x1) > 0) return 0;
+	if (sgn(y3 - y2) * sgn(y4 - y1) > 0) return 0;
+	return 1;
+}
+
+bool intersect_linalg(long double x1, long double y1, long double x2, long double y2, long double x3, long double y3, long double x4, long double y4){
+	bool ans = false, paral=false;
+	long double B1 = x1-x2;
+	long double A1 = y2-y1;
+	long double B2 = x3-x4;
+	long double A2 = y4-y3;
+	long double C1 = (-1)*A1*x1-B1*y1;
+	long double C2 = (-1)*A2*x3-B2*y3;
+	long double denom = A1*B2-A2*B1;
+	
+	if(x1>x2) swap(x1,x2);
+	if(y1>y2) swap(y1,y2);
+	if(x3>x4) swap(x3,x4);
+	if(y3>y4) swap(y3,y4);
+	bool valid=false;
+	if(denom != 0){
+		long double x = -(C1*B2-C2*B1)/denom;
+		long double y = (A2*C1-A1*C2)/denom;
+		if(x>=max(x1,x3)&& x<=min(x2,x4)&& y>=max(y1,y3)&& y<=min(y2,y4)) ans=1;
+	}
+	if(denom == 0){
+		if(A1*C2-A2*C1 == 0 && B1*C2-B2*C1 == 0 && (max(y1,y2) >= min(y3,y4) && min(y1,y2) <= max(y3,y4) && max(x1,x2) >= min(x3,x4) && min(x1,x2) <= max(x3,x4))){
+			are_paral = true;
+		}
+	}
+	return ans;
+}
+
+int main() {
+	long double x1, x2, x3, x4, y1, y2, y3, y4;
+	cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
+	
+	bool linalg = intersect_linalg(x1, y1, x2, y2, x3, y3, x4, y4);
+	
+	if((linalg) || are_paral)cout << "Yes";
+	else cout << "No";
+	return 0;
+}
