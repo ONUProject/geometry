@@ -1,0 +1,23 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+struct point{
+	long double x, y;
+	point(long double a, long double b){
+		x = a;
+		y = b;
+	}
+	point(){}
+};
+
+int main() {
+	point a, b, c, d;
+	cin >> a.x >> a.y >> b.x >> b.y >> c.x >> c.y >> d.x >> d.y;
+	long double ab = (a.x-d.x)*(a.y-b.y)-(a.x-b.x)*(a.y-d.y);
+	long double ca = (c.x-d.x)*(c.y-a.y)-(c.x-a.x)*(c.y-d.y);
+	long double bc = (b.x-d.x)*(b.y-c.y)-(b.x-c.x)*(b.y-d.y);
+	if((ab>=0 && ca>=0 && bc>=0)||(ab<=0 && ca<=0 && bc<=0)) cout << "In";
+	else cout << "Out";
+	return 0;
+}
