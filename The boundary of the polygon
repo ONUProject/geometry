@@ -1,0 +1,24 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int gcd (int a, int b) {
+	return b ? gcd (b, a % b) : a;
+}
+
+int main() {
+	long long n, t=0;
+	cin >> n;
+	long long X[n+1], Y[n+1];
+	
+	for (long long i=0;i<n;i++)
+		cin >> X[i] >> Y[i];
+	X[n]=X[0];
+	Y[n]=Y[0];
+	for (long long i=0;i<n;i++)
+	
+		t+=gcd(abs(X[i+1]-X[i]), abs(Y[i+1]-Y[i]));
+		
+	cout << t;
+	return 0;
+}
