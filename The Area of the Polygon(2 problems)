@@ -1,0 +1,27 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int n;
+    double t=0;
+    cin >> n;
+    int X[n+1], Y[n+1];
+    
+    for (int i=0;i<n;i++)
+    	cin >> X[i] >> Y[i];
+    X[n]=X[0];
+    Y[n]=Y[0];
+    
+    for (int i=0;i<n;i++){
+    	t+=(Y[i]+Y[i+1])*(X[i+1]-X[i]);
+    	}
+    	t=t/2;
+    	if(t<0)
+    		t=-t;
+    		
+    cout.precision(3);
+    
+    cout << fixed <<t;
+	return 0;
+}
