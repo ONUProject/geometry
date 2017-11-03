@@ -11,12 +11,6 @@ int sgn(long double n){
 	else return 0;
 }
 
-bool rectang_intersect(long double x1, long double y1, long double x2, long double y2, long double x3, long double y3, long double x4, long double y4){
-	if (sgn(x3 - x2) * sgn(x4 - x1) > 0) return 0;
-	if (sgn(y3 - y2) * sgn(y4 - y1) > 0) return 0;
-	return 1;
-}
-
 bool intersect_linalg(long double x1, long double y1, long double x2, long double y2, long double x3, long double y3, long double x4, long double y4){
 	bool ans = false, paral=false;
 	long double B1 = x1-x2;
