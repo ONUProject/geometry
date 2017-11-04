@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-long NOD (long a, long b) {
+long GCD (long a, long b) {
 	long c;
 	while (b) {
 		c = a % b;
@@ -15,7 +15,7 @@ long NOD (long a, long b) {
 int main() {
 	long m, n, c = 0, a = 0, b = 0;
 	cin >> m >> n;
-	long g = NOD(m, n);
+	long g = GCD(m, n);
 	m /= g;
 	n /= g;
 	cout << (n + m - 2) << " ";
