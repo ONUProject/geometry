@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+int N,W,E;
+cin >> N >> W >> E;
+int Z1,Z2,Z3,Z4,x1,x2,x3,x4,y1,y2,y3,y4,x0 = 0, y0 = W,xn = 100*N,yn = E ,k = 0;
+for (int i = 1; i <= N; i++){
+  for (int j = 1; j <= N; j++){
+    x1 = 100*i; y1 = 100*j;Z1 = (x0-x1)*(yn-y0)-(y0 - y1)*(xn-x0);x2 = 100*i - 100;y2 = 100*j - 100;
+    Z2 = (x0-x2)*(yn-y0)-(y0 - y2)*(xn-x0);
+    x3 = 100*i -100; 
+    y3 = 100*j;
+    Z3 = (x0-x3)*(yn-y0)-(y0 - y3)*(xn-x0);
+    x4 = 100*i; y4 = 100*j - 100;
+    Z4 = (x0-x4)*(yn-y0)-(y0 - y4)*(xn-x0);
+  i f ((Z1 < 0 && Z2 < 0 &&Z3 < 0 &&Z4 < 0 ) || (Z1 > 0 && Z2 > 0 &&Z3 > 0 &&Z4 > 0)) k+=0;
+    else k++;
+  }
+}
+cout << k;
+return 0;
+}
