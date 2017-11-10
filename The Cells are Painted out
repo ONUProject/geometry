@@ -1,0 +1,58 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+const int maxn = 220, shift = 110;
+double eps = 1e-6;
+bool field[maxn][maxn];
+
+int main() {
+	int n, x1, x2, y1, y2;
+	cin >> n;
+	vector<pair<int, int> > points(n);
+	//input
+	for(int i = 0; i < n; ++i){
+		scanf("%d%d", &x1, &y1);
+		points[i] = make_pair(x1 + shift, y1 + shift);
+	}
+	
+	for(int i = 0; i < n-1; ++i){
+		x1 = points[i].first;
+		x2 = points[i+1].first;
+		y1 = points[i].second;
+		y2 = points[i+1].second;
+		field[x1][y1] = field[x1-1][y1] = field[x1][y1-1] = field[x1-1][y1-1] = true;
+		field[x2][y2] = field[x2-1][y2] = field[x2][y2-1] = field[x2-1][y2-1] = true;
+		
+		if(x1 > x2) swap(x1,x2), swap(y1,y2);
+		for(int x = x1+1; x < x2; ++x){
+			double k = (double)(x - x1)/(double)(x2 - x);
+			double y = (y1 + k*y2)/(1 + k);
+			int yi = (int)round(y);
+			if(abs(yi-y) < eps) field[x][yi] = field[x-1][yi] = field[x][yi-1] = field[x-1][yi-1] = true;
+			else field[x][(int)y] = field[x-1][(int)y] = true;
+		}
+		
+		if(y1 > y2) swap(x1,x2), swap(y1,y2);
+		for(int y = y1+1; y < y2; ++y){
+			double k = (double)(y - y1)/(double)(y2 - y);
+			double x = (x1 + k*x2)/(1 + k);
+			int xi = (int)round(x);
+			if(abs(xi-x) < eps) field[xi][y] = field[xi - 1][y] = field[xi][y - 1] = field[xi - 1][y - 1] = true;
+			else field[(int)x][y] = field[(int)x][y - 1] = true;
+		}
+		
+	}
+	int ans=0;
+	if(n==1) ans=4;
+	for(int i = 0; i < maxn; ++i){
+		for(int j = 0; j < maxn; ++j){
+			ans+=field[i][j];
+		}
+	}
+	cout << ans << '\n';
+	return 0;
+}
