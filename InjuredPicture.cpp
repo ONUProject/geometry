@@ -31,15 +31,14 @@ int main() {
         if (A.between(C,D)) {
             if (B.between(C,D)) {
                if (A.distance(B) <= H) answer = M_PI * A.distance(B) / 2.;
-               else answer = A.distance(B) * asin (H / A.distance(B)); // нет такого теста
+               else answer = A.distance(B) * asin (H / A.distance(B));
             } else {
                 if (C.between(A,B)) {
-                    if (A.distance(B) <= H)  answer = -1; // нет такого теста
-                    else answer = A.distance(B) * (asin (H / A.distance(B)) - acos(A.distance(C) / A.distance(B)));
+                    if (A.distance(B) <= H)  answer = A.distance(B) * asin(A.distance(C) / A.distance(B));
+					else if (A.distance(B) * A.distance(B) <= H * H + A.distance(C) * A.distance(C))  answer = A.distance(B) * (asin (H / A.distance(B)) - acos(A.distance(C) / A.distance(B)));
                 } else {
-                    if (A.distance(B) <= H)   answer = A.distance(B) * (M_PI / 2 - acos(A.distance(D) / A.distance(B))); 
-                    else answer = A.distance(B) * (asin (H / A.distance(B)) - acos(A.distance(D) / A.distance(B))); 
-                    answer = -1; // нет таких тестов
+                    if (A.distance(B) <= H)  answer = A.distance(B) * asin(A.distance(D) / A.distance(B)); 
+                    else if (A.distance(B) * A.distance(B) <= H * H + A.distance(D) * A.distance(D)) answer = A.distance(B) * (asin (H / A.distance(B)) - acos(A.distance(D) / A.distance(B))); 
                 }
             }
         } else if (B.between(C,D)) {
@@ -47,7 +46,7 @@ int main() {
             if (A.distance(B)*A.distance(B) < a * a + H * H) {
                 answer = A.distance(B) * acos(a / A.distance(B));
             } else {
-                answer = A.distance(B) * asin(H / A.distance(B)); // нет такоо теста
+                answer = A.distance(B) * asin(H / A.distance(B));
             }
         } else {
             double a = max(A.distance(C), A.distance(D));
