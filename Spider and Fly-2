@@ -1,0 +1,86 @@
+#include <iostream>
+#include <cmath>
+ 
+using namespace std;
+ 
+long long dl(long long x1, long long y1, long long x2, long long y2) 
+{
+    return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+}
+ 
+long long ans(long long a, long long b, long long c, long long x2, long long y2, long long x1, long long y1, long long z1)
+{
+    int fl = 0;
+    long long x, y, s = 5000000000000ll;
+    if(z1 == 0) {
+        x = x1; 
+        y = y1; 
+        return dl(x, y, x2, y2);
+    }
+    if (x1 == 0) {
+        x = -z1; 
+        y = y1;
+        s = min(s, dl(x, y, x2, y2));
+        x = -y1;
+        y = -z1;
+        s = min(s, dl(x, y, x2, y2));
+        x = y1-b;
+        y = z1+b;
+        s = min(s, dl(x, y, x2, y2));
+    }
+    if (x1 == a) {
+        x = a + z1; 
+        y = y1; 
+        s = min(s, dl(x, y, x2, y2));
+        x = a+y1;
+        y = -z1;
+        s = min(s, dl(x, y, x2, y2));
+        x = a+b-y1;
+        y = z1+b;
+        s = min(s, dl(x, y, x2, y2));
+    }
+    if (y1 == 0) {
+        y = -z1; 
+        x = x1;
+        s = min(s, dl(x, y, x2, y2));
+        y = -x1;
+        x = -z1;
+        s = min(s, dl(x, y, x2, y2));
+        y = x1-a;
+        x = z1+a;
+        s = min(s, dl(x, y, x2, y2));
+    }
+    if (y1 == b) {
+        y = b + z1; 
+        x = x1; 
+        s = min(s, dl(x, y, x2, y2));
+        y = b+x1;
+        x = -z1;
+        s = min(s, dl(x, y, x2, y2));
+        y = b+a-x1;
+        x = z1+a;
+        s = min(s, dl(x, y, x2, y2));
+    }
+     
+    return s;
+}
+ 
+int main () 
+{
+    int i, j, l, t, k, fl, m, n;
+    long long x1, y1, z1, x2, y2, z2;
+    long long a, b, c;
+    long long x, y;
+    long long s = 1000000000;
+    cin >> a >> b >> c >> x2 >> y2 >> x1 >> y1 >> z1;
+    if (z1 != c || x1 == 0 || x1 == a || y1 == 0 || y1 == b) {
+        s = ans(a, b, c, x2, y2, x1, y1, z1);
+    } else {
+        s = min(s, ans(a, b, c, x2, y2, 0, y1, z1+x1));
+        s = min(s, ans(a, b, c, x2, y2, a, y1, z1+a-x1));
+        s = min(s, ans(a, b, c, x2, y2, x1, 0, z1+y1));
+        s = min(s, ans(a, b, c, x2, y2, x1, b, z1+b-y1));
+    }
+    cout << min(sqrt(s), z1 + sqrt(ans(a, b, c, x2, y2, x1, y1, 0)));
+    return 0;
+}
